@@ -44,7 +44,7 @@ public class Utils {
     }
 
     /**
-     * Retrieves the last value with the given key from the map
+     * Retrieves the last value with the given key from the map. The comparision is case insensitive.
      *
      * @param key
      * @param requestMap
@@ -53,7 +53,7 @@ public class Utils {
     public static Optional<String> getValueFromRequestMap(String key, Map<String, String[]> requestMap) {
         return requestMap.entrySet()
                 .stream()
-                .filter(entrySet -> entrySet.getKey().trim().equals(key) && entrySet.getValue() != null)
+                .filter(entrySet -> entrySet.getKey().trim().toLowerCase().equals(key.toLowerCase()) && entrySet.getValue() != null)
                 .map(entrySet -> entrySet.getValue())
                 .flatMap(strings -> Arrays.stream(strings).distinct())
                 .reduce((first, last) -> last);
