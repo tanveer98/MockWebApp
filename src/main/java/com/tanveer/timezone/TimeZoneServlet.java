@@ -48,18 +48,19 @@ public class TimeZoneServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (Utils.isInvalidMimeType(objectMapper, req, resp)) {
+        if (Utils.isInvalidMimeType(req)) {
+            int statusCode = HttpServletResponse.SC_METHOD_NOT_ALLOWED;
+            ErrorResponseModel error = new ErrorResponseModel(statusCode,
+                    "Unsupported MIME type; Please use MIME TYPE " + Constants.MIME_TYPE_FORM_ENCODED);
+            Utils.constructResponse(objectMapper, error, resp);
+            resp.setStatus(statusCode);
             return;
         }
 
-        Optional<RequestModel> requestModel = RequestModel.fromRequestMap(req.getParameterMap());
+        Optional<TimeZoneRequestModel> requestModel = TimeZoneRequestModel.fromRequestMap(req.getParameterMap());
 
         if(requestModel.isPresent()) {
-            ResponseModel responseBody = timeZoneService.GetTimeZoneResponse(requestModel.get());
-            Utils.constructResponse(objectMapper, responseBody, resp);
-        }
-        else {
-            ErrorResponseModel responseBody = new ErrorResponseModel(HttpServletResponse.SC_BAD_REQUEST, "Invalid request parameter key");
+            TimeZoneResponseModel responseBody = timeZoneService.GetTimeZoneResponse(requestModel.get());
             Utils.constructResponse(objectMapper, responseBody, resp);
         }
     }

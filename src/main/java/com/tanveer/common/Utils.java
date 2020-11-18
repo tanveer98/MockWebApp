@@ -35,25 +35,12 @@ public class Utils {
     }
 
     /**
-     * Checks if the request-body payload mimetype is invalid or not.
-     * If invalid response body is set to contain a serialized ErrorResponseModel object.
-     *
-     * @param req  Servlet request object to check the MIME type
-     * @param resp Servlet Response object which response body is set if MIME Type is invalid
-     * @return true if invalid, false otherwise.
-     * @throws IOException
+     * Compares with the request body MIME type with the ones supported by the webapp
+     * @param req
+     * @return
      */
-    public static boolean isInvalidMimeType(ObjectMapper objectMapper, HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        boolean result = !req.getContentType().equals(Constants.MIME_TYPE_FORM_ENCODED);
-        if (result) {
-            int statusCode = HttpServletResponse.SC_METHOD_NOT_ALLOWED;
-            ErrorResponseModel error = new ErrorResponseModel(statusCode,
-                    "Unsupported MIME type; Please use MIME TYPE " + Constants.MIME_TYPE_FORM_ENCODED);
-            Utils.constructResponse(objectMapper, error, resp);
-            resp.setStatus(statusCode);
-        }
-
-        return result;
+    public static boolean isInvalidMimeType(HttpServletRequest req) {
+        return !req.getContentType().equals(Constants.MIME_TYPE_FORM_ENCODED);
     }
 
     /**

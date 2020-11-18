@@ -2,5 +2,5 @@ package com.tanveer.weather;
 
 
 public interface WeatherServiceInterface {
-    public ResponseModel GetWeatherResponse(RequestModel requestModel);
+    public WeatherResponseModel GetWeatherResponse(WeatherRequestModel weatherRequestModel);
 }

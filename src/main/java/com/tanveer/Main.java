@@ -14,6 +14,7 @@ public class Main {
         tomcat.getHost().setAppBase(appBase);
         tomcat.setPort(SERVER_PORT);
         tomcat.addWebapp(contextPath, appBase);
+
         tomcat.start();
         tomcat.getServer().await();
     }

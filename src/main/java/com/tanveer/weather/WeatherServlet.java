@@ -38,10 +38,10 @@ public class WeatherServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Optional<RequestModel> requestModel = RequestModel.fromRequestMap(req.getParameterMap());
+        Optional<WeatherRequestModel> requestModel = WeatherRequestModel.fromRequestMap(req.getParameterMap());
 
         if(requestModel.isPresent()) {
-            ResponseModel responseBody = weatherService.GetWeatherResponse(requestModel.get());
+            WeatherResponseModel responseBody = weatherService.GetWeatherResponse(requestModel.get());
             Utils.constructResponse(objectMapper, responseBody, resp);
         }
     }
