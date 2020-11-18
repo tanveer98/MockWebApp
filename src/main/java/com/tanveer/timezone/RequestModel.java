@@ -20,8 +20,16 @@ public class RequestModel {
         Optional<String> value = Utils.getValueFromRequestMap(propertyName, map);
         RequestModel returnValue = null;
 
-        if(value.isPresent()) {
-            returnValue = new RequestModel(Long.parseLong(value.get()));
+        if (value.isPresent()) {
+            String v = value.get();
+            if (!Utils.isWhiteSpaceOrEmpty(v)) {
+                try {
+                    returnValue = new RequestModel(Long.parseLong(v));
+                } catch (NumberFormatException e) {
+                    System.err.println(e.getMessage());
+                    returnValue = null;
+                }
+            }
         }
 
         return Optional.ofNullable(returnValue);

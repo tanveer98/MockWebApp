@@ -10,6 +10,15 @@ import java.util.Map;
 import java.util.Optional;
 
 public class Utils {
+    /**
+     * Checks if string is null empty or just whitespace
+     *
+     * @param s string to check
+     * @return true if is empty string or whitespace, false otherwise.
+     */
+    public static boolean isWhiteSpaceOrEmpty(String s) {
+        return (s == null) || s.isEmpty() || s.trim().isEmpty();
+    }
 
     /**
      * Serializes the given object value to json, then writes the json into the response body,

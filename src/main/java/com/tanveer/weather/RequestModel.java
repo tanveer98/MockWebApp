@@ -9,20 +9,31 @@ public class RequestModel {
     private static final String propertyName = "cityCode";
     private final long cityCode;
 
+    private RequestModel(long code) {
+        cityCode = code;
+    }
+
     public long getCityCode() {
         return cityCode;
     }
-
-    private RequestModel(long code ) { cityCode = code; }
 
     public static Optional<RequestModel> fromRequestMap(Map<String, String[]> map) {
         Optional<String> value = Utils.getValueFromRequestMap(propertyName, map);
         RequestModel returnValue = null;
 
-        if(value.isPresent()) {
-            returnValue = new RequestModel(Long.parseLong(value.get()));
+        if (value.isPresent()) {
+            String v = value.get();
+            if (!Utils.isWhiteSpaceOrEmpty(v)) {
+                try {
+                    returnValue = new RequestModel(Long.parseLong(v));
+                } catch (NumberFormatException e) {
+                    System.err.println(e.getMessage());
+                    returnValue = null;
+                }
+            }
         }
 
         return Optional.ofNullable(returnValue);
     }
+
 }

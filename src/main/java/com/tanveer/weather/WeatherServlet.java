@@ -44,10 +44,6 @@ public class WeatherServlet extends HttpServlet {
             ResponseModel responseBody = weatherService.GetWeatherResponse(requestModel.get());
             Utils.constructResponse(objectMapper, responseBody, resp);
         }
-        else {
-            ErrorResponseModel responseBody = new ErrorResponseModel(HttpServletResponse.SC_BAD_REQUEST, "Invalid request parameter key");
-            Utils.constructResponse(objectMapper, responseBody, resp);
-        }
     }
 
     @Override
