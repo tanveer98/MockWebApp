@@ -10,6 +10,7 @@
 *.class
 
 # Log file
+/servletlogs
 *.log
 
 # BlueJ files

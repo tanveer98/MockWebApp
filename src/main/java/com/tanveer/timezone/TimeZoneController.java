@@ -31,17 +31,18 @@ public class TimeZoneController extends HttpServlet {
         timeZoneService = new TimeZoneService();
     }
 
+    //GET /timezone
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         timeZoneService.constructErrorResponse(HttpServletResponse.SC_METHOD_NOT_ALLOWED,
                 "This endpoint does not support GET method", resp);
     }
-
+    //POST /timezone
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (!Utils.isValidContentType(req)) {
             timeZoneService.constructErrorResponse(HttpServletResponse.SC_METHOD_NOT_ALLOWED,
-                    "Unsupported MIME type; Please use MIME TYPE " + Constants.MIME_TYPE_FORM_ENCODED,
+                    "Unsupported content type; Please use content type of " + Constants.MIME_TYPE_FORM_ENCODED,
                     resp);
             return;
         }

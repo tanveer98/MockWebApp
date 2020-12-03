@@ -27,6 +27,16 @@ public class WeatherService implements WeatherServiceInterface {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    /**
+     * This method takes the request map and validates the request parameters
+     * It checks if the if the appropriate key value pairs are present in the request
+     * and checks the type of the values.
+     * @param requestParamMap Map containing the request parameters
+     * @param response HttpServletResponse object where the response is stored.
+     * @return On successful validation it return true,
+     *         otherwise false, in which case response object contains the json serialized error message
+     * @throws IOException When Serialization process fails
+     */
     @Override
     public boolean validateParams(Map<String, String[]> requestParamMap, HttpServletResponse response) throws IOException {
         Optional<String> cityCodeValue = Utils.getValueFromRequestMap(KEY_CITY_CODE, requestParamMap);
@@ -54,6 +64,14 @@ public class WeatherService implements WeatherServiceInterface {
         return true;
     }
 
+    /**
+     * Service to get the weather data based on the request parameter.
+     * If Successful the response body will contain a serialized WeatherResponseModel object
+     * Otherwise, it will contain a serialized ErrorResponseModel object
+     * @param requestParamMap Map containing the request parameters
+     * @param response HttpServletResponse object where the response is stored.
+     * @throws IOException When Serialization process fails
+     */
     @Override
     public void getWeather(Map<String, String[]> requestParamMap, HttpServletResponse response) throws IOException {
         Optional<String> cityCodeValueString = Utils.getValueFromRequestMap(KEY_CITY_CODE, requestParamMap);
@@ -111,6 +129,14 @@ public class WeatherService implements WeatherServiceInterface {
         response.setStatus(responseModel.statusCode);
     }
 
+    /**
+     * Helper method to construct a ErrorResponseModel and serialize into the response
+     * @param errorCode Status code of the response
+     * @param errorMessage Error message
+     * @param response HttpServletResponse object where the response is stored.
+     * @throws IOException When Serialization process fails
+     */
+    @Override
     public void constructErrorResponse(int errorCode, String errorMessage, HttpServletResponse response) throws IOException {
         ErrorResponseModel errorResponseModel = new ErrorResponseModel(errorCode, errorMessage);
         Utils.constructResponse(objectMapper, errorResponseModel, response);

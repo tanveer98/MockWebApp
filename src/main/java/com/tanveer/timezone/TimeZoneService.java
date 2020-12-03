@@ -30,6 +30,16 @@ public class TimeZoneService implements TimeZoneServiceInterface {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+    /**
+     * This method takes the request map and validates the request parameters
+     * It checks if the if the appropriate key value pairs are present in the request
+     * and checks the type of the values.
+     * @param requestParamMap Map containing the request parameters
+     * @param response HttpServletResponse object where the response is stored.
+     * @return On successful validation it return true,
+     *         otherwise false, in which case response object contains the json serialized error message
+     * @throws IOException When Serialization process fails
+     */
     @Override
     public boolean validateParams(Map<String, String[]> requestParamMap, HttpServletResponse response) throws IOException {
         Optional<String> zipCodeValue = Utils.getValueFromRequestMap(KEY_ZIP_CODE, requestParamMap);
@@ -56,6 +66,14 @@ public class TimeZoneService implements TimeZoneServiceInterface {
         return true;
     }
 
+    /**
+     * Service to get the timezone based on the request parameter.
+     * If Successful the response body will contain a serialized TimeZoneResponseModel object
+     * Otherwise, it will contain a serialized ErrorResponseModel object
+     * @param requestParamMap Map containing the request parameters
+     * @param response HttpServletResponse object where the response is stored.
+     * @throws IOException When Serialization process fails
+     */
     @Override
     public void getTimezone(Map<String, String[]> requestParamMap, HttpServletResponse response) throws IOException {
         Optional<String> zipCodeValue = Utils.getValueFromRequestMap(KEY_ZIP_CODE, requestParamMap);
@@ -108,6 +126,13 @@ public class TimeZoneService implements TimeZoneServiceInterface {
         response.setStatus(responseModel.statusCode);
     }
 
+    /**
+     * Helper method to construct a ErrorResponseModel and serialize into the response
+     * @param errorCode Status code of the response
+     * @param errorMessage Error message
+     * @param response HttpServletResponse object where the response is stored.
+     * @throws IOException When Serialization process fails
+     */
     @Override
     public void constructErrorResponse(int errorCode, String errorMessage, HttpServletResponse response) throws IOException {
         ErrorResponseModel errorResponseModel = new ErrorResponseModel(errorCode, errorMessage);

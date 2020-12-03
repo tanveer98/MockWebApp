@@ -4,7 +4,23 @@
             <pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{36} - %msg%n</pattern>        </encoder>
     </appender>
 
+    <appender name="rollingFileApp" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./servletlogs/logs.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>log-%d.%i.gz</fileNamePattern>
+            <maxFileSize>3MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
     <root level="DEBUG">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="rollingFileApp" />
     </root>
 </configuration>
