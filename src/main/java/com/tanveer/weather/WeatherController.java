@@ -17,7 +17,7 @@ import java.io.IOException;
         name = "WeatherServlet",
         urlPatterns = {"/weather"}
 )
-public class WeatherServlet extends HttpServlet {
+public class WeatherController extends HttpServlet {
     private WeatherServiceInterface weatherService;
 
     @Override
@@ -44,7 +44,6 @@ public class WeatherServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int statusCode = HttpServletResponse.SC_METHOD_NOT_ALLOWED;
         weatherService.constructErrorResponse(statusCode, "This endpoint does not support POST method", resp);
-
     }
 
 }

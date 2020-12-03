@@ -29,21 +29,21 @@ public class WeatherService implements WeatherServiceInterface {
 
     @Override
     public boolean validateParams(Map<String, String[]> requestParamMap, HttpServletResponse response) throws IOException {
-        Optional<String> cityCodeValueString = Utils.getValueFromRequestMap(KEY_CITY_CODE, requestParamMap);
-        Optional<String> cityNameValueString = Utils.getValueFromRequestMap(KEY_CITY_NAME, requestParamMap);
+        Optional<String> cityCodeValue = Utils.getValueFromRequestMap(KEY_CITY_CODE, requestParamMap);
+        Optional<String> cityNameValue = Utils.getValueFromRequestMap(KEY_CITY_NAME, requestParamMap);
 
-        if (cityCodeValueString.isPresent()) {
+        if (cityCodeValue.isPresent()) {
             try {
-                Long.parseLong(cityCodeValueString.get());
+                Long.parseLong(cityCodeValue.get());
             } catch (NumberFormatException e) {
-                LOGGER.error("invalid value from {} {}", KEY_CITY_CODE, cityCodeValueString.get());
+                LOGGER.error("invalid value from {} {}", KEY_CITY_CODE, cityCodeValue.get());
                 constructErrorResponse(HttpServletResponse.SC_BAD_REQUEST
                         , "Value for request parameter `" + KEY_CITY_CODE + "`"
                         + "Should be of type Long", response);
                 return false;
             }
 
-        } else if (!cityNameValueString.isPresent()) {
+        } else if (!cityNameValue.isPresent()) {
             LOGGER.error("Missing request parameter {} and {}", KEY_CITY_CODE, KEY_CITY_NAME);
             constructErrorResponse(HttpServletResponse.SC_BAD_REQUEST,
                     "Request parameter: `" + KEY_CITY_CODE + '`'
