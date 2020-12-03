@@ -38,11 +38,9 @@ public class WeatherServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Optional<WeatherRequestModel> requestModel = WeatherRequestModel.fromRequestMap(req.getParameterMap());
-
-        if(requestModel.isPresent()) {
-            WeatherResponseModel responseBody = weatherService.GetWeatherResponse(requestModel.get());
-            Utils.constructResponse(objectMapper, responseBody, resp);
+        boolean validated = weatherService.validateInput(req.getParameterMap(), resp);
+        if(validated) {
+            weatherService.getWeather(req.getParameterMap(), resp);
         }
     }
 

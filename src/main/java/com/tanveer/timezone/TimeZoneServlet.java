@@ -60,7 +60,7 @@ public class TimeZoneServlet extends HttpServlet {
         Optional<TimeZoneRequestModel> requestModel = TimeZoneRequestModel.fromRequestMap(req.getParameterMap());
 
         if(requestModel.isPresent()) {
-            TimeZoneResponseModel responseBody = timeZoneService.GetTimeZoneResponse(requestModel.get());
+            TimeZoneResponseModel responseBody = timeZoneService.getTimeZoneResponse(requestModel.get());
             Utils.constructResponse(objectMapper, responseBody, resp);
         }
     }

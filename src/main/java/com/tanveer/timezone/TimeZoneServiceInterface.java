@@ -1,5 +1,11 @@
 package com.tanveer.timezone;
 
+import com.tanveer.common.ErrorResponseModel;
+
+import java.util.Map;
+import java.util.Optional;
+
 public interface TimeZoneServiceInterface {
-    public TimeZoneResponseModel GetTimeZoneResponse(TimeZoneRequestModel timeZoneRequestModel);
+    public Optional<ErrorResponseModel> validateInput(Map<String, String[]> map);
+    public TimeZoneResponseModel getTimeZoneResponse(TimeZoneRequestModel timeZoneRequestModel);
 }
