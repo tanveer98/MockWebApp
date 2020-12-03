@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum TemperatureUnit {
 
-    C("Celcius"), F("Farenheit"), K("Kelvin");
+    CELSIUS("C"), FAHRENHEIT("F"), KELVIN("K");
 
     public final String label;
 
-    private TemperatureUnit(String label) {
+    TemperatureUnit(String label) {
         this.label = label;
     }
 
