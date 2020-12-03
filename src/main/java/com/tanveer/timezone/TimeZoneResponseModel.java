@@ -6,8 +6,9 @@ import com.tanveer.common.ResponseModelBase;
 public class TimeZoneResponseModel extends ResponseModelBase {
 
     public long zipCode;
+    public String cityName;
     public String timeZoneString;
-    public int utcOffset;
+    public double utcOffset;
 
     public TimeZoneResponseModel() {
         super(200, Constants.RESULT_OK);
@@ -29,21 +30,29 @@ public class TimeZoneResponseModel extends ResponseModelBase {
         this.timeZoneString = timeZoneString;
     }
 
-    public int getUtcOffset() {
+    public double getUtcOffset() {
         return utcOffset;
     }
 
-    public void setUtcOffset(int utcOffset) {
+    public void setUtcOffset(double utcOffset) {
         this.utcOffset = utcOffset;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     @Override
     public String toString() {
-        return "TimeZoneModel{" +
+        return "TimeZoneResponseModel{" +
                 "zipCode=" + zipCode +
+                ", cityName='" + cityName + '\'' +
                 ", timeZoneString='" + timeZoneString + '\'' +
                 ", utcOffset=" + utcOffset +
                 '}';
     }
-
 }

@@ -32,11 +32,22 @@ The app has 2 endpoints to serve requests
 - #### ```/weather```
     To serve weather information for a particular city. Only accepts ```GET``` requests
     
-    example: ```/weather?code=1``` 
+    example: ```/weather?citycode=1```
+  
+    example: ```/weather?cityname=1```
+    
+    In case where both citycode and city names are present, citycode takes priority
+    example: ```/weather?cityname=1&citycode=1```
 
 - #### ```/timezone```
     To serve timezone information for a particular zip code. Only accepts ```POST``` requests
     
     example: ```/timezone```
-    request-body: ```zipcode=1``` (application/x-www-form-urlencoded)
+    request-body: ```zipcode:1``` (application/x-www-form-urlencoded)
 
+    example: ```/timezone```
+    request-body: ```cityname:1``` (application/x-www-form-urlencoded)
+
+    In case where both zipcode and city names are present, zip takes priority
+    example: ```/timezone```
+    request-body: ```zipcode:1 cityname=1``` (application/x-www-form-urlencoded)

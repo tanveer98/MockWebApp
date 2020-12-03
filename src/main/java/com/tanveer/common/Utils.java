@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 
@@ -39,8 +40,10 @@ public class Utils {
      * @param req
      * @return
      */
-    public static boolean isInvalidMimeType(HttpServletRequest req) {
-        return !req.getContentType().equals(Constants.MIME_TYPE_FORM_ENCODED);
+    public static boolean isValidContentType(HttpServletRequest req) {
+        String contentType = req.getContentType();
+        return !Utils.isWhiteSpaceOrEmpty(contentType)
+                && contentType.equalsIgnoreCase(Constants.MIME_TYPE_FORM_ENCODED);
     }
 
     /**
